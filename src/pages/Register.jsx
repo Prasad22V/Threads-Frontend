@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useLoginMutation, useSigninMutation } from "../redux/service";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../components/common/Loading";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const _700 = useMediaQuery("(min-width:700px)");
@@ -21,6 +22,7 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const toggleLogin = () => {
     setLogin((pre) => !pre);
@@ -55,6 +57,8 @@ const Register = () => {
         theme: "colored",
         transition: Bounce,
       });
+      // Redirect to home after success
+      navigate("/");
     }
     if (signinUserData.isError) {
       toast.error(signinUserData.error.data.msg, {
